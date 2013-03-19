@@ -10,36 +10,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;  
 import java.util.ArrayList;
   
-/*public class Traverse
-{
-	public static void main(String args[]) throws IOException
-	{
-		//Path startPath = Paths.get("c:/"); 
-		Path startPath = Paths.get("c:/test_file2");
-		TraverseDir walk = new TraverseDir();
-		try 
-		{  
-	        Files.walkFileTree(startPath, walk);  
-	    } 
-		catch (IOException e) 
-	    {  
-	        System.err.println(e);  
-	    }
-		System.out.println("dircount: "+TraverseDir.dircount);
-		System.out.println("~~~~~~~~~~~~~~~~~ ");
-		System.out.println("DirPath Count: "+TraverseDir.dirpath.size());
-		//创建txt文档存文件夹的路径
-		FileWriter fw = new FileWriter("C:/log.txt");
-		for(int i = 0; i < TraverseDir.dirpath.size(); i++)
-		{
-			fw.write(TraverseDir.dirpath.get(i)+ "\r\n");
-		}
-		//关闭txt
-		fw.close();
-	}
-}*/
-
-
 class TraverseDir extends SimpleFileVisitor<Path>
 {
 	//public static int filecount = 0;

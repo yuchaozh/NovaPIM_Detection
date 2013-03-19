@@ -17,6 +17,10 @@ class Watch
 {
 	public WatchService service;
 	public ArrayList<Path> path;
+	public static int quite = 1;
+	public static boolean valid;
+	public static WatchKey key;
+	public static FileWriter fw;
 
 	//构造函数
 	public Watch() throws IOException
@@ -47,9 +51,13 @@ class Watch
 	{
 		Path child = null;
 		System.out.println("操作：");
+		fw = new FileWriter("C:/log.txt");
+		SimpleDateFormat dataformate = new SimpleDateFormat("yyyy-MM-dd|hh:mm:ss");
+		String time = dataformate.format(new Date());
 		while(true)
-	       {
-	          WatchKey key = service.take();    // retrieve the watchkey
+	    {
+	          //WatchKey key = service.take();    // retrieve the watchkey
+			key = service.take();
 	          for (WatchEvent event : key.pollEvents())
 	          {
 	             //System.out.println(event.kind() + ": "+ event.context());  // Display event and file name
@@ -58,37 +66,22 @@ class Watch
 	        	  Path name = evt.context();
 	        	  //(Path) key.watchable()返回被修改的父亲目录，resolve是结合文件目录和父亲目录
 	        	  child = ((Path) key.watchable()).resolve(name);
+	        	  //fw.write(time+"\r\n");
 	        	  System.out.format(new SimpleDateFormat("yyyy-MM-dd|hh:mm:ss").format(new Date()) + "|%s|%s\n", event.kind(), child);
-
-	        	  //System.out.format(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) + "  %s|%s\n", event.kind(), child);
+	        	  //System.out.println("....................");
+	        	  //System.out.println(time+"|"+event.kind()+"|"+child+"\n");
+	        	  fw.append(time+"|"+event.kind()+"|"+child+"\r\n");
 	          }
-	          boolean valid = key.reset();
+
+	          //boolean valid = key.reset();
+	          valid = key.reset();
 	          if (!valid)
 	          {
+	        	 fw.close();
+	        	 System.out.println("Detection END!");
 	             break; // Exit if directory is deleted
 	          }
-	       }
+
+	    }	
 	}
 }
-
-/*public class Reviced_Watch
-{
-	public static void main(String args[]) throws IOException, InterruptedException
-	{
-		for (int i =0; i < TraverseDir.dirpath.size(); i++)
-		{
-			System.out.print(TraverseDir.dirpath.get(i) + "; ");
-		}
-		Watch watch = new Watch();
-		watch.path.add(Paths.get("c:/test_file2/test_file2_2"));
-		watch.path.add(Paths.get("c:/file_test"));
-		watch.path.add(Paths.get("c:/test_file2"));
-		System.out.println("监视的文件夹： ");
-		for (int i =0; i < watch.path.size(); i++)
-		{
-			System.out.print(watch.path.get(i) + "; ");
-		}
-		System.out.println();
-		watch.SetPath();
-	}
-}*/

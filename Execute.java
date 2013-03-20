@@ -17,7 +17,7 @@ public class Execute
 	{
 		Timer timer = new Timer(true);
 		Execute execute = new Execute();
-		timer.schedule(new task(), 30*1000);
+		timer.schedule(new task(), 60*1000);
 		//timer.schedule(finish(), 60*1000);
 		execute.traverse();
 		execute.watch();

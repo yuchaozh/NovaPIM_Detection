@@ -53,7 +53,8 @@ class Watch
 		System.out.println("²Ù×÷£º");
 		fw = new FileWriter("C:/log.txt");
 		SimpleDateFormat dataformate = new SimpleDateFormat("yyyy-MM-dd|hh:mm:ss");
-		String time = dataformate.format(new Date());
+		//String time = dataformate.format(new Date());
+		String time;
 		while(true)
 	    {
 	          //WatchKey key = service.take();    // retrieve the watchkey
@@ -68,6 +69,7 @@ class Watch
 	        	  child = ((Path) key.watchable()).resolve(name);
 	        	  //fw.write(time+"\r\n");
 	        	  System.out.format(new SimpleDateFormat("yyyy-MM-dd|hh:mm:ss").format(new Date()) + "|%s|%s\n", event.kind(), child);
+	        	  time = dataformate.format(new Date());
 	        	  //System.out.println("....................");
 	        	  //System.out.println(time+"|"+event.kind()+"|"+child+"\n");
 	        	  fw.append(time+"|"+event.kind()+"|"+child+"\r\n");
@@ -81,7 +83,6 @@ class Watch
 	        	 System.out.println("Detection END!");
 	             break; // Exit if directory is deleted
 	          }
-
 	    }	
 	}
 }

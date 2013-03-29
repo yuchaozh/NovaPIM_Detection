@@ -1,8 +1,3 @@
-
-/**
- * @author yuchaozh
- *没有完成循环功能，停止检测的时候有问题=退出程序，如何再次监视？
- */
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,19 +6,38 @@ import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
+
+/**
+ * The execution of the file system detecting function.
+ * 没有完成循环功能，停止检测的时候有问题=退出程序，如何再次监视？
+ * @version  2013/3/20
+ * @author  Yuchao Zhou
+ */
 public class Execute 
 {
-	public static void main(String args[]) throws IOException, InterruptedException
+	private static String xmlfile = "PIMTree.xml";
+	
+	public static void main(String args[]) throws IOException, InterruptedException, ParserConfigurationException, SAXException
 	{
 		Timer timer = new Timer(true);
 		Execute execute = new Execute();
 		timer.schedule(new task(), 60*1000);
 		//timer.schedule(finish(), 60*1000);
 		execute.traverse();
+		execute.readxml();
+		execute.readhtm();
 		execute.watch();
 		
 	}
 	
+	/**
+	 * traverse: traverse the whole file system and find out all folders in it
+	 * @param 
+	 */
 	public void traverse() throws IOException
 	{
 		//Path startPath = Paths.get("c:/"); 
@@ -39,7 +53,7 @@ public class Execute
 	    }
 		//System.out.println("dircount: "+TraverseDir.dircount);
 		//System.out.println("~~~~~~~~~~~~~~~~~ ");
-		System.out.println("DirPath Count: "+TraverseDir.dirpath.size());
+		//System.out.println("DirPath Count: "+TraverseDir.dirpath.size());
 		//创建txt文档存文件夹的路径
 		FileWriter fw = new FileWriter("C:/DetectedDir.txt");
 		for(int i = 0; i < TraverseDir.dirpath.size(); i++)
@@ -50,6 +64,10 @@ public class Execute
 		fw.close();
 	}
 	
+	/**
+	 * watch: watching all modifications occurred in the file system.
+	 * @param 
+	 */
 	public void watch() throws IOException, InterruptedException
 	{
 		Watch watch = new Watch();
@@ -59,16 +77,39 @@ public class Execute
 			Object url = "";
 			//System.out.println(TraverseDir.dirpath.size());
 			 url = TraverseDir.dirpath.get(i);
-			 //System.out.println(url.toString());
+			 System.out.println(url.toString());
 			 watch.path.add(Paths.get(url.toString()));
 		}
 		
-		for (int i =0; i < watch.path.size(); i++)
+/*		for (int i =0; i < watch.path.size(); i++)
 		{
 			System.out.print(watch.path.get(i) + "; ");
-		}
+		}*/
 		System.out.println();
 		watch.SetPath();
+	}
+	
+	/**
+	 * watch: read referenced files in the concept tree
+	 * @param 
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws ParserConfigurationException 
+	 */
+	public void readxml() throws ParserConfigurationException, SAXException, IOException
+	{
+		ReadPIMTree readxml = new ReadPIMTree();
+		readxml.startRead();
+	}
+	
+	/**
+	 * readhtm: read all htm files and find the referenced file in them
+	 * @param 
+	 */
+	public void readhtm() throws IOException
+	{
+		ReadHTM readhtm = new ReadHTM();
+		readhtm.startread();
 	}
 }
 

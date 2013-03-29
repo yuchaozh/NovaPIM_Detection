@@ -9,14 +9,18 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;  
 import java.nio.file.attribute.BasicFileAttributes;  
 import java.util.ArrayList;
-  
+
+/**
+ * Traverse the whole file system to find out all directories.
+ *
+ * @version  2013/3/20
+ * @author  Yuchao Zhou
+ */
 class TraverseDir extends SimpleFileVisitor<Path>
 {
 	//public static int filecount = 0;
-	//文件夹的数目
-	public static int dircount = 0;
-	//存储文件夹路径的泛型数组
-	public static ArrayList<Path> dirpath;
+	public static int dircount = 0;  //文件夹的数目
+	public static ArrayList<Path> dirpath;	//存储文件夹路径的泛型数组
 	
 	public TraverseDir()
 	{

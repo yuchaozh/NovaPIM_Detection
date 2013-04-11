@@ -45,7 +45,7 @@ class Watch
 		{
 			this.path.get(i).register(service,
 		            StandardWatchEventKinds.ENTRY_CREATE,
-		            StandardWatchEventKinds.ENTRY_MODIFY,
+		            //StandardWatchEventKinds.ENTRY_MODIFY,
 		            StandardWatchEventKinds.ENTRY_DELETE);  // Register the directory
 		}
 		begin();
@@ -63,6 +63,11 @@ class Watch
 		SimpleDateFormat dataformate = new SimpleDateFormat("yyyy-MM-dd|hh:mm:ss");
 		//String time = dataformate.format(new Date());
 		String time;
+		System.out.println(ReadPIMTree.dirpath.size());
+/*		for (int i = 0; i < ReadPIMTree.dirpath.size(); i++)
+		{
+			System.out.println("引用文件的目录： " + ReadPIMTree.dirpath.get(i));
+		}*/
 		while(true)
 	    {
 	          //WatchKey key = service.take();    // retrieve the watchkey
@@ -75,17 +80,19 @@ class Watch
 	        	  Path name = evt.context();
 	        	  //(Path) key.watchable()返回被修改的父亲目录，resolve是结合文件目录和父亲目录
 	        	  child = ((Path) key.watchable()).resolve(name);
-	        	  //System.out.println(evt.context());
-	        	  //System.out.println(key.watchable());
 /****************referenced files已经记录在reffile内，可以对比了，但现在在测试所以注释了，勿删************************/
 	        	  //for (int i = 0; i < ReadPIMTree.reffile.size(); i++)
 	        	  //{
-	        		 // if (evt.context().toString().equals(ReadPIMTree.reffile.get(i)))
-	        		  //{
-	        			  System.out.format(new SimpleDateFormat("yyyy-MM-dd|hh:mm:ss").format(new Date()) + "|%s|%s\n", event.kind(), child);
-	    	        	  time = dataformate.format(new Date());
-	    	        	  fw.append(time+"|"+event.kind()+"|"+child+"\r\n");
-	        		  //}
+	        	  	for (int i = 0; i < ReadPIMTree.dirpath.size(); i++)
+	        	  	{
+	        	  		if (key.watchable().equals(ReadPIMTree.dirpath.get(i)))
+	        	  		{
+	        	  			System.out.format(new SimpleDateFormat("yyyy-MM-dd|hh:mm:ss").format(new Date()) + "|%s|%s\n", event.kind(), child);
+	        	  			time = dataformate.format(new Date());
+	        	  			fw.append(time+"|"+event.kind()+"|"+child+"\r\n");
+	        	  			break;
+	        	  		}
+	        	  	}
 	        	  //}
 	          }
 

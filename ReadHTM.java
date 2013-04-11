@@ -22,11 +22,11 @@ public class ReadHTM
 	FileInputStream input;
 	InputStreamReader inputreader;
 	BufferedReader br;
-	int offset;
-	private int index;
+	private int offset;
+	private int index;  //index of each hyperlinks in all htm files
 	private int backindex;
-	private ArrayList<Path> htmref;
-	private Path htmrefpath;
+	private ArrayList<Path> htmref;  //refereneced files contain in htm files
+	private Path htmrefpath;  //the path of referenced hyperlinks in htm files
 	
 	public ReadHTM()
 	{

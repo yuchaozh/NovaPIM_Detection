@@ -42,13 +42,12 @@ public class Execute
 	{
 		Timer timer = new Timer(true);
 		Execute execute = new Execute();
-		timer.schedule(new task(), 15*1000);
+		timer.schedule(new task(), 60*1000);
 		//timer.schedule(finish(), 60*1000);
 		execute.traverse();
 		execute.readxml();
 		execute.readhtm();
 		execute.watch();
-		
 	}
 	
 	/**
@@ -57,8 +56,8 @@ public class Execute
 	 */
 	public void traverse() throws IOException
 	{
-		//Path startPath = Paths.get("c:/"); 
-		Path startPath = Paths.get("c:/test_file2");
+		Path startPath = Paths.get("c:/PIM"); 
+		//Path startPath = Paths.get("c:/test_file2");
 		TraverseDir traversedir = new TraverseDir();
 		try 
 		{  
@@ -94,7 +93,7 @@ public class Execute
 			Object url = "";
 			//System.out.println(TraverseDir.dirpath.size());
 			 url = TraverseDir.dirpath.get(i);
-			 System.out.println(url.toString());
+			 //System.out.println(url.toString());
 			 watch.path.add(Paths.get(url.toString()));
 		}
 		
@@ -208,12 +207,8 @@ class task extends TimerTask
 		String oneline = br.readLine();
 		while (oneline != null)
 		{
-			System.out.println("here"+oneline);
 			text1.append(oneline + "\n");
-			//text1.setLineWrap(true);
-			//text1.setWrapStyleWord(true);
 			oneline = br.readLine();
 		}
-		
 	}
 }

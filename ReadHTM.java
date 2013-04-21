@@ -63,7 +63,9 @@ public class ReadHTM
 				htmrefpath = Paths.get(info.substring(index + 9,backindex));
 				htmref.add(Paths.get(info.substring(index + 9,backindex)));
 				index = prelength + index;
-				//System.out.println("totle index: " + index);
+				System.out.println("where: " + file.toString());
+				System.out.println("totle index: " + index);
+				System.out.println(htmrefpath);
 			}
 			info = br.readLine();   
 			prelength = prelength + currentlength;
@@ -78,19 +80,19 @@ public class ReadHTM
 	 */
 	public void startread() throws IOException
 	{
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		System.out.println("ReadHTM.java htm文件： ");
+		System.out.println("ReadHTM.java htm文件：~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		for (int i = 0; i < ReadPIMTree.htmpath.size(); i++)
 		{
-			System.out.println(ReadPIMTree.htmpath.get(i));
+			//System.out.println(ReadPIMTree.htmpath.get(i));
 			Path filepath = ReadPIMTree.htmpath.get(i);
 			File htmfile = new File(filepath.toString());
 			readhtm(htmfile);
 		}
+/*		System.out.println("ReadHTM.java 在htm中被引用的文件： ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		for (int i = 0; i < htmref.size(); i++)
 		{
 			System.out.println(htmref.get(i));
-		}
+		}*/
 
 	}
 }

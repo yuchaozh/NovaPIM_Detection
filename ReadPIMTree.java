@@ -39,6 +39,7 @@ public class ReadPIMTree extends DefaultHandler
 		reffile = new ArrayList<String>();
 		htmfile = new ArrayList<String>();
 		htmpath = new ArrayList<Path>();
+		System.out.println("ReadPIMTree.java在concept tree中被引用的文件： ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	}
 	
 	public void startRead() throws SAXException, IOException
@@ -49,24 +50,6 @@ public class ReadPIMTree extends DefaultHandler
 			saxPaser = saxParserFactory.newSAXParser();
 			ReadPIMTree handler = new ReadPIMTree();
 			saxPaser.parse(xmlfile, handler);
-/*			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			System.out.println("ReadPIMTree.java 在concept tree中引用的文件的文件: ");
-			for (int i = 0; i < reffile.size(); i++)
-			{
-				System.out.println(reffile.get(i));
-			}
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			System.out.println("ReadPIMTree.java htm的文件: ");
-			for (int i = 0; i < htmfile.size(); i++)
-			{
-				System.out.println(htmfile.get(i));
-			}
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			System.out.println("ReadPIMTree.java htm的文件的路径: ");
-			for (int i = 0; i < htmpath.size(); i++)
-			{
-				System.out.println(htmpath.get(i));
-			}*/
 		}
 		catch (ParserConfigurationException e)
 		{
@@ -91,6 +74,7 @@ public class ReadPIMTree extends DefaultHandler
 		//attrs.getLength()一行元素中有多少内容
 		String type = attrs.getValue("", "type");
 		offset = offset + attrs.getLength();
+
 		if (type.equals("file"))
 		{
 			//System.out.println(offset);
@@ -99,7 +83,6 @@ public class ReadPIMTree extends DefaultHandler
 			filename = filePath2fileName(filepath);
 			folderpath = filefolder(filepath);
 			reffile.add(filename);
-			
 			
 			if (dirpath.size() == 0)
 			{
@@ -125,9 +108,8 @@ public class ReadPIMTree extends DefaultHandler
 			{
 				dirpath.add(Paths.get(folderpath));
 			}
-			
-			
 			//dirpath.add(Paths.get(folderpath));
+			
 			System.out.println(filename);
 			//System.out.println(filepath);
 			//System.out.println(attrs.getValue("", "dispname")+" : "+ attrs.getValue("", "path")+" : "+ attrs.getValue("", "type")+" : "+ attrs.getValue("", "expanded"));

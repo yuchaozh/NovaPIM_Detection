@@ -63,7 +63,7 @@ class Watch
 		SimpleDateFormat dataformate = new SimpleDateFormat("yyyy-MM-dd|hh:mm:ss");
 		//String time = dataformate.format(new Date());
 		String time;
-		System.out.println(ReadPIMTree.dirpath.size());
+		//System.out.println(ReadPIMTree.dirpath.size());
 /*		for (int i = 0; i < ReadPIMTree.dirpath.size(); i++)
 		{
 			System.out.println("引用文件的目录： " + ReadPIMTree.dirpath.get(i));

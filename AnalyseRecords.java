@@ -1,10 +1,14 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import org.jdom.*;
+import org.jdom.input.SAXBuilder; 
 
 /**
  * Analyze the modification records in log.txt to out put actual operation.
@@ -41,8 +45,9 @@ public class AnalyseRecords
 	/**
 	 * oneAction: analyses the data in the arraylist and sorts actions by time
 	 * @param 
+	 * @throws JDOMException 
 	 */
-	public void oneAction() throws IOException
+	public void oneAction() throws IOException, JDOMException
 	{
 		int number = 0;
 		prenum = number;
@@ -137,7 +142,7 @@ public class AnalyseRecords
 		return noAction;
 	}
 	
-	public void outPutResult(int prenum, int curnum)
+	public void outPutResult(int prenum, int curnum) throws JDOMException, IOException
 	{
 		//Delete action
 		if (curnum == prenum)
@@ -149,12 +154,24 @@ public class AnalyseRecords
 			operation = getOperation(SysOperation);
 			System.out.println("操作的文件是： " + file);
 			System.out.println("操作的类型是： " + operation);
+			
+			/*******************************************未完成******************************************/
+			//还要判断file是不是在concept tree中被引用了。
+			//delteNode(linecontent);
 		}
 		else
 		{
 			
 		}
 	}
+	
+/*	public void delteNode(String node) throws JDOMException, IOException
+	{
+		SAXBuilder builder = new SAXBuilder();
+		String path = "C:/Eclipse_Jave/eclipse/PIM/Sources/PIMTree.xml";
+		Document document = builder.build(new File(path));
+		Element root = document.getRootElement();
+	}*/
 	
 	/**
 	 * filePath2fileName: extract the file name
@@ -179,7 +196,7 @@ public class AnalyseRecords
 		return tureOperation;
 	}
 	
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args) throws IOException, JDOMException
 	{
 		AnalyseRecords ar = new AnalyseRecords();
 		ar.storeContent();

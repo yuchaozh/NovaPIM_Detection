@@ -87,7 +87,7 @@ public class Execute
 	public void watch() throws IOException, InterruptedException
 	{
 		Watch watch = new Watch();
-		System.out.println("监视的文件夹： ");
+		//System.out.println("监视的文件夹： ");
 		for(int i = 0; i < TraverseDir.dirpath.size(); i++)
 		{
 			Object url = "";

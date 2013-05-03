@@ -27,7 +27,8 @@ public class ReadHTM
 	private int backindex;
 	private ArrayList<Path> htmref;  //refereneced files contain in htm files
 	private Path htmrefpath;  //the path of referenced hyperlinks in htm files
-	RefileList queue;
+	static RefileList queue;
+	//ArrayList<Path> ref_htm_path;
 	
 	public ReadHTM()
 	{
@@ -114,6 +115,24 @@ public class ReadHTM
 		queue.traverse();
 		System.out.println("HtmQueue: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		queue.traversehtm();
+		System.out.println("~~~~~~~test~~~~~~");
+		//queue.outPutPath("[大家网]Python3程序开发指南(第二版)[www.TopSage.com].pdf");
+		//for (int i = 0; i < queue.outPutPath("[大家网]Python3程序开发指南(第二版)[www.TopSage.com].pdf").size(); i++)
+		//{
+			//System.out.println("!!!!!!" + queue.outPutPath("[大家网]Python3程序开发指南(第二版)[www.TopSage.com].pdf").get(i));
+		//}
+/*		System.out.println("~~~~");
+		queue.outPutPath("Git权威指南.pdf");
+		System.out.println("~~~~");
+		queue.outPutPath("JAVA解惑.pdf");
+		System.out.println("~~~~");
+		queue.outPutPath("Web.2.0动态网站开发——PHP技术与应用.pdf");
+		System.out.println("~~~~");
+		queue.outPutPath("[程序员修炼之道：从小工到专家].亨特.托马斯.扫描版.pdf");
+		System.out.println("~~~~");
+		queue.outPutPath("CareerCup-Top 150 Questions 4th.pdf");
+		System.out.println("~~~~");
+		queue.outPutPath("Pgm update 25th March.pptx");*/
 	}
 }
 
@@ -359,26 +378,6 @@ class RefileList
 		}	
 	}
 	
-/*	public void add(Path path)
-	{
-		Node1 c,n;
-		Node1 node1 = new Node1(path);
-		if (htmqueue.isEmpty())
-		{
-			htmqueue.front = node1;
-		}
-		else
-		{
-			c = htmqueue.front;
-			while (c.getNext() != null)
-			{
-				c = c.getNext();
-			}
-			c.setNext(node1);
-		}
-	}*/
-	
-	
 	public void equal(String file)
 	{
 		Node c,n;
@@ -421,6 +420,81 @@ class RefileList
 				//traversehtm();
 			}
 		}
+	}
+	
+	public ArrayList outPutPath(String file)
+	{
+		ArrayList<Path> ref_htm_path;
+		ref_htm_path = new ArrayList<Path>();
+		boolean contain = false;
+		Node c;
+		Node1 c1;
+		String refile = file;
+		//如果Refile队列为空
+		if (isEmpty())
+		{
+			System.out.println("the RefileQueue is empty!");
+		}
+		else
+		{
+			c = first;
+			//Refile队列的第一项匹配
+			if (c.getrefile().equals(refile))
+			{
+				contain = true;
+				//Refile队列的第一项的htm队列为空
+				if (c.htmqueue.isEmpty())
+				{
+					System.out.println("No htm path!");
+				}
+				else  //Refile队列的第一项的htm队列不为空
+				{
+					c1 = c.htmqueue.front;
+					//System.out.println(c1.getData());
+					ref_htm_path.add(c1.getData());
+					while (c1.getNext() != null)
+					{
+						c1 = c1.getNext();
+						//System.out.println(c1.getData());
+						ref_htm_path.add(c1.getData());
+					}
+				}
+			}
+			else  //Refile队列不是第一项匹配
+			{
+				while (c.getNext() != null)
+				{
+					c = c.getNext();
+					if (c.getrefile().equals(refile))
+					{
+						contain = true;
+						if (c.htmqueue.isEmpty())
+						{
+							System.out.println("No htm path!");
+						}
+						else
+						{
+							c1 = c.htmqueue.front;
+							//System.out.println(c1.getData());
+							ref_htm_path.add(c1.getData());
+							while (c1.getNext() != null)
+							{
+								c1 = c1.getNext();
+								//System.out.println(c1.getData());
+								ref_htm_path.add(c1.getData());
+							}
+						}
+					}
+					
+				}
+				
+			}
+		}
+/*		for (int i = 0; i < ref_htm_path.size(); i ++)
+		{
+			System.out.println("!!!!" + ref_htm_path.get(i));
+		}*/
+		return ref_htm_path;
 	}
 	
 /*	public void traverseHtm()
@@ -535,7 +609,6 @@ class RefileList
 					}
 				}
 			}
-			
 		}
 		
 		

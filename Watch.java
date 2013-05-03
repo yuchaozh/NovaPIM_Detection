@@ -43,6 +43,7 @@ class Watch
 		System.out.println("Watch.java  监视的目录数量： "+path.size());
 		for (int i=0; i < this.path.size(); i++)
 		{
+			System.out.println(path.get(i));
 			this.path.get(i).register(service,
 		            StandardWatchEventKinds.ENTRY_CREATE,
 		            //StandardWatchEventKinds.ENTRY_MODIFY,

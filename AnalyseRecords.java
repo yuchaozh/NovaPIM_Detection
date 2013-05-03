@@ -33,12 +33,14 @@ public class AnalyseRecords
 	private int linenum = 0;
 	private int prenum = 0;
 	private int curnum = 0;
-	private static boolean noAction = false;  //if the content of log.txt is null then true
+	static boolean noAction = false;  //if the content of log.txt is null then true
+	private Synchronize syn;
 	
 	public AnalyseRecords() throws IOException
 	{
-		br=new BufferedReader(new FileReader("c:/log.txt"));
+		br = new BufferedReader(new FileReader("c:/log.txt"));
 		actions = new ArrayList<String>();
+		syn = new Synchronize();
 		//oneline = br.readLine();
 	}
 	
@@ -154,24 +156,102 @@ public class AnalyseRecords
 			operation = getOperation(SysOperation);
 			System.out.println("操作的文件是： " + file);
 			System.out.println("操作的类型是： " + operation);
-			
+			if (inPIMTree(file))
+			{
+				syn.deleteXML(file);
+			}
+			if (inHTM(file))
+			{
+				for (int i = 0; i < ReadHTM.queue.outPutPath(file).size(); i++)
+				{
+					syn.deletehtm(file, ReadHTM.queue.outPutPath(file).get(i).toString());
+				}
+				
+			}
 			/*******************************************未完成******************************************/
 			//还要判断file是不是在concept tree中被引用了。
 			//delteNode(linecontent);
 		}
 		else //rename,remove actions
 		{
-			
+			String linecontent1 = actions.get(prenum);
+			String linecontent2 = actions.get(curnum);
+			String file1 = filePath2fileName(linecontent1);
+			String file2 = filePath2fileName(linecontent2);
+			contentInAL = linecontent1.split("\\|");
+			String SysOperation1 = contentInAL[2];
+			String path1 = contentInAL[3];
+			contentInAL = linecontent2.split("\\|");
+			String path2 = contentInAL[3];
+			String SysOperation2 = contentInAL[2];
+			if (!file1.equals(file2))
+			{
+				System.out.println(file1 + "  " + file2);
+				operation = "rename";
+				System.out.println("操作的文件是： " + file1 + " to: " + file2);
+				System.out.println("操作的类型是： " + operation);
+				if (inPIMTree(file))
+				{
+					syn.renameXML(file1, file2);
+				}
+				if (inHTM(file))
+				{
+					for (int i = 0; i < ReadHTM.queue.outPutPath(file).size(); i++)
+					{
+						syn.rewritehtm(ReadHTM.queue.outPutPath(file).get(i).toString(), file1, file2);
+					}
+					
+				}
+			}
+			else if (file1.equals(file2) && !path1.equals(path2)) 
+			{
+				operation  = "move";
+				System.out.println("操作的文件是： " + file1 + "Path: " + path1 + " to: " + path2);
+				System.out.println("操作的类型是： " + operation);
+				if (inPIMTree(file))
+				{
+					syn.renameXML(file1, file2);
+				}
+				if (inHTM(file))
+				{
+					for (int i = 0; i < ReadHTM.queue.outPutPath(file).size(); i++)
+					{
+						syn.rewritehtm(ReadHTM.queue.outPutPath(file).get(i).toString(), file1, file2);
+					}
+					
+				}
+			}
 		}
 	}
 	
-/*	public void delteNode(String node) throws JDOMException, IOException
+	public boolean inPIMTree(String file)
 	{
-		SAXBuilder builder = new SAXBuilder();
-		String path = "C:/Eclipse_Jave/eclipse/PIM/Sources/PIMTree.xml";
-		Document document = builder.build(new File(path));
-		Element root = document.getRootElement();
-	}*/
+		boolean in = false;
+		for (int i = 0; i < ReadPIMTree.htmfile.size(); i ++)
+		{
+			//System.out.println(ReadPIMTree.htmfile.get(i));
+			if (file.equals(ReadPIMTree.htmfile.get(i)))
+				in = true;
+		}
+		if (in == false)
+			System.out.println("this file is not referenced in PIMTree");
+		else
+			System.out.println("this file is referenced in PIMTree!");
+		return in;
+	}
+	
+	public boolean inHTM(String file)
+	{
+		boolean in = false;
+		if (!ReadHTM.queue.outPutPath(file).isEmpty())
+			in = true;
+		if (in == false)
+			System.out.println("this file is not in any htm files");
+		else
+			System.out.println("this file is in some htm files");
+		return in;
+	}
+	
 	
 	/**
 	 * filePath2fileName: extract the file name

@@ -26,6 +26,7 @@ import javax.swing.JTextArea;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.jdom.JDOMException;
 import org.xml.sax.SAXException;
 
 /**
@@ -37,17 +38,19 @@ import org.xml.sax.SAXException;
 public class Execute 
 {
 	private static String xmlfile = "PIMTree.xml";
+	private static Execute execute;
 	
-	public static void main(String args[]) throws IOException, InterruptedException, ParserConfigurationException, SAXException
+	public static void main(String args[]) throws IOException, InterruptedException, ParserConfigurationException, SAXException, JDOMException
 	{
 		Timer timer = new Timer(true);
-		Execute execute = new Execute();
+		execute = new Execute();
 		timer.schedule(new task(), 60*1000);
 		//timer.schedule(finish(), 60*1000);
 		execute.traverse();
 		execute.readxml();
 		execute.readhtm();
 		execute.watch();
+		//execute.analyse();
 	}
 	
 	/**
@@ -127,6 +130,14 @@ public class Execute
 		ReadHTM readhtm = new ReadHTM();
 		readhtm.startread();
 	}
+	
+/*	public void analyse() throws IOException, JDOMException
+	{
+		AnalyseRecords ar = new AnalyseRecords();
+		ar.storeContent();
+		if (ar.noAction == false)
+			ar.oneAction();
+	}*/
 }
 
 /****************退出有点问题*******************************/
@@ -199,7 +210,16 @@ class task extends TimerTask
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame.dispose();
+				//frame.dispose();
+				try {
+					analyse();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (JDOMException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -210,5 +230,13 @@ class task extends TimerTask
 			text1.append(oneline + "\n");
 			oneline = br.readLine();
 		}
+	}
+	
+	public void analyse() throws IOException, JDOMException
+	{
+		AnalyseRecords ar = new AnalyseRecords();
+		ar.storeContent();
+		if (ar.noAction == false)
+			ar.oneAction();
 	}
 }

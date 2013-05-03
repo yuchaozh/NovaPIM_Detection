@@ -1,6 +1,3 @@
-/**
- *    读取原文件，重写进新文件，但是源文件无法删除，新文件无法重命名！！！！！！！！！！！！！！！！！！！！！！
- */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

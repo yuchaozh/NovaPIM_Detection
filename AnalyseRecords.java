@@ -159,7 +159,7 @@ public class AnalyseRecords
 			//还要判断file是不是在concept tree中被引用了。
 			//delteNode(linecontent);
 		}
-		else
+		else //rename,remove actions
 		{
 			
 		}

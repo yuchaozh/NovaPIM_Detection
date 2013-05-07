@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class ReadHTM 
 {
+	
 	FileInputStream input;
 	InputStreamReader inputreader;
 	BufferedReader br;
@@ -28,6 +29,7 @@ public class ReadHTM
 	private ArrayList<Path> htmref;  //refereneced files contain in htm files
 	private Path htmrefpath;  //the path of referenced hyperlinks in htm files
 	static RefileList queue;
+	static ArrayList<Path> ref_htm_path;
 	//ArrayList<Path> ref_htm_path;
 	
 	public ReadHTM()
@@ -87,6 +89,9 @@ public class ReadHTM
 			prelength = prelength + currentlength;
 			line++;
 		}
+		br.close();
+		input.close();
+		inputreader.close();
 	}
 	
 	public String filePath2fileName(String linecontent) 
@@ -187,6 +192,7 @@ class Node
 class RefileList
 {
 	Node first;
+	//ArrayList<Path> ref_htm_path;
 	//Node rear;
 	//private HtmQueue htmqueue;
 	
@@ -424,8 +430,8 @@ class RefileList
 	
 	public ArrayList outPutPath(String file)
 	{
-		ArrayList<Path> ref_htm_path;
-		ref_htm_path = new ArrayList<Path>();
+		//ArrayList<Path> ref_htm_path;
+		ReadHTM.ref_htm_path = new ArrayList<Path>();
 		boolean contain = false;
 		Node c;
 		Node1 c1;
@@ -451,12 +457,12 @@ class RefileList
 				{
 					c1 = c.htmqueue.front;
 					//System.out.println(c1.getData());
-					ref_htm_path.add(c1.getData());
+					ReadHTM.ref_htm_path.add(c1.getData());
 					while (c1.getNext() != null)
 					{
 						c1 = c1.getNext();
 						//System.out.println(c1.getData());
-						ref_htm_path.add(c1.getData());
+						ReadHTM.ref_htm_path.add(c1.getData());
 					}
 				}
 			}
@@ -476,12 +482,12 @@ class RefileList
 						{
 							c1 = c.htmqueue.front;
 							//System.out.println(c1.getData());
-							ref_htm_path.add(c1.getData());
+							ReadHTM.ref_htm_path.add(c1.getData());
 							while (c1.getNext() != null)
 							{
 								c1 = c1.getNext();
 								//System.out.println(c1.getData());
-								ref_htm_path.add(c1.getData());
+								ReadHTM.ref_htm_path.add(c1.getData());
 							}
 						}
 					}
@@ -494,7 +500,14 @@ class RefileList
 		{
 			System.out.println("!!!!" + ref_htm_path.get(i));
 		}*/
-		return ref_htm_path;
+		System.out.println("!!!ref_htm_path: ");
+		for (int i = 0; i < ReadHTM.ref_htm_path.size(); i++)
+		{
+			
+			System.out.println(ReadHTM.ref_htm_path.get(i));
+		}
+
+		return ReadHTM.ref_htm_path;
 	}
 	
 /*	public void traverseHtm()

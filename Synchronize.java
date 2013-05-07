@@ -35,11 +35,13 @@ public class Synchronize
 	//deleteXML操作
 	public void deleteXML(String file) throws IOException
 	{
+		System.out.println("~~~Synchronize.java--DeleteXML~~~");
 		//String target = "C:\\PIM\\读书记录.htm";
-		String target = "C:.PIM.读书记录.htm";
+		//String target = "C:.PIM.读书记录.htm";
+		file = file.replace("\\", ".");
 		Pattern p = Pattern.compile(file);
-		File outfile = new File("c:/PIMTREE/PIMTree1.xml");
-		File infile = new File("c:/PIMTREE/PIMTree.xml");
+		File outfile = new File("C:/Eclipse_Jave/eclipse/PIM/Sources/PIMTree1.xml");
+		File infile = new File("C:/Eclipse_Jave/eclipse/PIM/Sources/PIMTree.xml");
 		fop = new FileOutputStream(outfile);
 		Writer out = new OutputStreamWriter(fop, "UTF-8");
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(infile),"UTF-8"));
@@ -72,8 +74,9 @@ public class Synchronize
 	//renameXML操作
 	public void renameXML(String prefile, String postfile) throws IOException
 	{
-		File outfile = new File("c:/PIMTREE/PIMTree1.xml");
-		File infile = new File("c:/PIMTREE/PIMTree.xml");
+		System.out.println("~~~Synchronize.java--RenameXML~~~");
+		File outfile = new File("C:/Eclipse_Jave/eclipse/PIM/Sources/PIMTree1.xml");
+		File infile = new File("C:/Eclipse_Jave/eclipse/PIM/Sources/PIMTree.xml");
 		fop = new FileOutputStream(outfile);
 		Writer out = new OutputStreamWriter(fop, "UTF-8");
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(infile),"UTF-8"));
@@ -81,7 +84,7 @@ public class Synchronize
 		while (oneline != null)
 		{
 			oneline = oneline.replace(prefile, postfile);
-			System.out.println(oneline);
+			//System.out.println(oneline);
 			out.write(oneline);
 			out.write("\n");
 			oneline = br.readLine();
@@ -96,6 +99,7 @@ public class Synchronize
 	
 	public void deletehtm(String file, String path) throws IOException
 	{
+		System.out.println("~~~Synchronize.java--deleteHTM~~~");
 		Pattern p = Pattern.compile(path);
 		File bakfile = new File(file + "bak");
 		fop = new FileOutputStream(bakfile);
@@ -105,7 +109,7 @@ public class Synchronize
 		BufferedReader br = new BufferedReader(new FileReader(readfile));
 		String oneline = br.readLine();
 		//System.out.println(oneline);
-		System.out.println("Path which would be deleted: " + path);
+		System.out.println("File: " + file + " Path which would be deleted: " + path);
 		//System.out.println("String file: " + file);
 		while (oneline != null)
 		{
@@ -134,6 +138,9 @@ public class Synchronize
 	
 	public void rewritehtm(String file, String prepath, String postpath) throws IOException
 	{
+		System.out.println("~~~Synchronize.java--RewiteHTM~~~");
+		System.out.println("need changed htm file: " + file);
+		System.out.println("from: " + prepath + " to: " + postpath);
 		Pattern p = Pattern.compile(prepath);
 		File bakfile = new File(file + "bak");
 		fop = new FileOutputStream(bakfile);
@@ -145,7 +152,7 @@ public class Synchronize
 		while (oneline != null)
 		{
 			oneline = oneline.replace(prepath, postpath);
-			System.out.println(oneline);
+			//System.out.println(oneline);
 			out.write(oneline);
 			out.write("\n");
 			oneline = br.readLine();

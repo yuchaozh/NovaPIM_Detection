@@ -143,6 +143,7 @@ public class Execute
 /****************退出有点问题*******************************/
 class task extends TimerTask
 {
+	JTextArea text1;
 	public void run()
 	{
 		Watch.quite = -1;
@@ -174,7 +175,7 @@ class task extends TimerTask
 		frame.setBounds(300,300,550,300);
 		
 		JLabel label1 = new JLabel("对文件的操作： ");
-		JTextArea text1 = new JTextArea();
+		text1 = new JTextArea();
 		text1.setEditable(false);
 		JScrollPane scrollPane = new JScrollPane(text1);
 		JButton button = new JButton("OK");
@@ -212,7 +213,25 @@ class task extends TimerTask
 			{
 				//frame.dispose();
 				try {
+					Watch.key.cancel();
 					analyse();
+					//text1 = new JTextArea();
+					SummaryNode c;
+					if (AnalyseRecords.summary.isEmpty())
+					{
+						System.out.println("the queue is empty!");
+					}
+					else
+					{
+						c = AnalyseRecords.summary.front;
+						text1.setText((AnalyseRecords.summary.getAction(c) + "\n"));
+						while(c.getNext() != null)
+						{
+							c = c.getNext();
+							text1.append(AnalyseRecords.summary.getAction(c) + "\n");
+						}
+					}
+					//Watch.key.cancel();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -237,6 +256,10 @@ class task extends TimerTask
 		AnalyseRecords ar = new AnalyseRecords();
 		ar.storeContent();
 		if (ar.noAction == false)
+		{
 			ar.oneAction();
+			ar.conduct();
+		}
+			
 	}
 }

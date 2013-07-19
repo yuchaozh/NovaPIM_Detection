@@ -121,23 +121,6 @@ public class ReadHTM
 		System.out.println("HtmQueue: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		queue.traversehtm();
 		System.out.println("~~~~~~~test~~~~~~");
-		//queue.outPutPath("[大家网]Python3程序开发指南(第二版)[www.TopSage.com].pdf");
-		//for (int i = 0; i < queue.outPutPath("[大家网]Python3程序开发指南(第二版)[www.TopSage.com].pdf").size(); i++)
-		//{
-			//System.out.println("!!!!!!" + queue.outPutPath("[大家网]Python3程序开发指南(第二版)[www.TopSage.com].pdf").get(i));
-		//}
-/*		System.out.println("~~~~");
-		queue.outPutPath("Git权威指南.pdf");
-		System.out.println("~~~~");
-		queue.outPutPath("JAVA解惑.pdf");
-		System.out.println("~~~~");
-		queue.outPutPath("Web.2.0动态网站开发——PHP技术与应用.pdf");
-		System.out.println("~~~~");
-		queue.outPutPath("[程序员修炼之道：从小工到专家].亨特.托马斯.扫描版.pdf");
-		System.out.println("~~~~");
-		queue.outPutPath("CareerCup-Top 150 Questions 4th.pdf");
-		System.out.println("~~~~");
-		queue.outPutPath("Pgm update 25th March.pptx");*/
 	}
 }
 
@@ -220,38 +203,6 @@ class RefileList
 		}
 		return result;
 	}
-	
-/*	public void add(String file)
-	{
-		boolean equal = false;
-		Node c,n;
-		n = new Node(file);
-		if (isEmpty())
-		{
-			first = n;
-		}
-		else
-		{
-			c = first;
-			if (first.getrefile().equals(file))
-			{
-				equal = true;
-			}
-			while (c.getNext() != null)
-			{
-				if (c.getNext().getrefile().equals(file))
-				{
-					equal = true;
-				}
-				c = c.getNext();
-			}
-			if (equal == false)
-			{
-				c.setNext(n);
-			}
-				
-		}
-	}*/
 	
 	public void add(String file, Path path)
 	{
@@ -510,73 +461,6 @@ class RefileList
 		return ReadHTM.ref_htm_path;
 	}
 	
-/*	public void traverseHtm()
-	{
-		
-		Node c;
-		if (isEmpty())
-		{
-			System.out.println("the RefileQueue is empty!");
-		}
-		else
-		{
-			c = first;
-			Node1 c1;
-			//System.out.println(c.getrefile());
-			if (htmqueue.isEmpty())
-			{
-				System.out.println("@ this node, the HtmQueue is empty!");
-			}
-			else
-			{
-				c1 = htmqueue.first;
-				System.out.println(c1.getData());
-				while (c1.getNext() != null)
-				{
-					c1 = c1.getNext();
-					System.out.println("next: " + c1.getData());
-				}
-			}
-			while (c.getNext() != null)
-			{
-				c = c.getNext();
-				//System.out.println(c.getrefile());
-				if (htmqueue.isEmpty())
-				{
-					System.out.println("@ this node, the HtmQueue is empty!");
-				}
-				else
-				{
-					c1 = htmqueue.first;
-					System.out.println(c1.getData());
-					while (c1.getNext() != null)
-					{
-						c1 = c1.getNext();
-						System.out.println("next: " + c1.getData());
-					}
-				}
-			}
-		}
-		
-		
-		Node1 c1;
-		if (htmqueue.isEmpty())
-		{
-			System.out.println("@ this node, the HtmQueue is empty!");
-		}
-		else
-		{
-			c1 = htmqueue.first;
-			System.out.println(c1.getData());
-			while (c1.getNext() != null)
-			{
-				c1 = c1.getNext();
-				System.out.println(c1.getData());
-			}
-		}
-	}
-*/
-	
 	public void traversehtm()
 	{
 		Node c;
@@ -623,24 +507,6 @@ class RefileList
 				}
 			}
 		}
-		
-		
-/*		Node1 c1;
-		if (htmqueue.isEmpty())
-		{
-			System.out.println("the htmQueue is empty!");
-		}
-		else
-		{
-			c1 = htmqueue.front;
-			System.out.println(c1.getData());
-			while (c1.getNext() != null)
-			{
-				c1 = c1.getNext();
-				System.out.println(c1.getData());
-			}
-		}*/
-		
 	}
 }
 

@@ -183,9 +183,6 @@ public class AnalyseRecords
 		}
 		else
 		{
-			
-			
-
 			String linecontent1 = actions.get(prenum);
 			String linecontent2 = actions.get(curnum);
 			String file1 = filePath2fileName(linecontent1);
@@ -204,32 +201,6 @@ public class AnalyseRecords
 				System.out.println("操作的文件是： " + path1 + " to: " + path2);
 				System.out.println("操作的类型是： " + operation);
 				summary.rename(time, file1, operation, path1, path2);
-				/*
-				if (inPIMTree(file1))
-				{
-					//syn.renameXML(path1, path2);
-					syn.renameXML(file1, file2);
-				}
-				if (inHTM(file1))
-				{
-					System.out.println("!!!here");
-					//for (int i = 0; i < ReadHTM.queue.outPutPath(file).size(); i++)
-					for (int i = 0; i < ReadHTM.ref_htm_path.size(); i++)
-					{
-						System.out.println(ReadHTM.ref_htm_path.size());
-						//System.out.println("!!!"+ReadHTM.queue.outPutPath(file).get(i));
-						//String path = ReadHTM.ref_htm_path.get(i).toString().replace("\\", "/");
-						String path = ReadHTM.ref_htm_path.get(i).toString();
-						System.out.println("path: " + path);
-						path1 = path1.replace("\\", "/");
-						path1 = path1.replace("c:", "C:");
-						path2 = path2.replace("\\", "/");
-						path2 = path2.replace("c:", "C:");
-						System.out.println("path1: " + path1 + " path2: " + path2);
-						syn.rewritehtm(path, path1, path2);
-					}
-					
-				}*/
 			}
 			//move action
 			else if (file1.equals(file2) && !path1.equals(path2)) 
@@ -239,38 +210,8 @@ public class AnalyseRecords
 				System.out.println("操作的文件是： " + file1 + "Path: " + path1 + " to: " + path2);
 				System.out.println("操作的类型是： " + operation);
 				summary.move(time, file1, operation, path1, path2);
-				/*					if (inPIMTree(file1))
-				{
-					path1 = path1.replace("c:", "C:");
-					path2 = path2.replace("c:", "C:");
-					syn.renameXML(path1, path2);
-				}
-				if (inHTM(file1))
-				{
-					for (int i = 0; i < ReadHTM.queue.outPutPath(file).size(); i++)
-					{
-						syn.rewritehtm(ReadHTM.queue.outPutPath(file).get(i).toString(), file1, file2);
-					}
-					for (int i = 0; i < ReadHTM.ref_htm_path.size(); i++)
-					{
-						System.out.println(ReadHTM.ref_htm_path.size());
-						//System.out.println("!!!"+ReadHTM.queue.outPutPath(file).get(i));
-						//String path = ReadHTM.ref_htm_path.get(i).toString().replace("\\", "/");
-						String path = ReadHTM.ref_htm_path.get(i).toString();
-						System.out.println("path: " + path);
-						path1 = path1.replace("\\", "/");
-						path1 = path1.replace("c:", "C:");
-						path2 = path2.replace("\\", "/");
-						path2 = path2.replace("c:", "C:");
-						System.out.println("path1: " + path1 + " path2: " + path2);
-						syn.rewritehtm(path, path1, path2);
-					}
-					
-				}*/
 			}
 		}
-		//summary.traverse();
-		//conduct();
 	}
 	
 	public void conduct() throws IOException
@@ -404,134 +345,6 @@ public class AnalyseRecords
 		}
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-/*	public void outPutResult(int prenum, int curnum) throws JDOMException, IOException
-	{
-		//Delete action
-		if (curnum == prenum)
-		{
-			String linecontent = actions.get(curnum);
-			file = filePath2fileName(linecontent);
-			contentInAL = linecontent.split("\\|");
-			String SysOperation = contentInAL[2];
-			String path1 = contentInAL[3];
-			operation = getOperation(SysOperation);
-			System.out.println("操作的文件是： " + file);
-			System.out.println("操作的类型是： " + operation);
-			if (operation.equals("CREATE"))
-			{
-				
-			}
-			else
-			{
-				if (inPIMTree(file))
-				{
-					syn.deleteXML(file);
-				}
-				if (inHTM(file))
-				{
-					for (int i = 0; i < ReadHTM.ref_htm_path.size(); i++)
-					{
-						String path = ReadHTM.ref_htm_path.get(i).toString();
-						path1 = path1.replace("\\", "/");
-						path1 = path1.replace("c:", "C:");
-						syn.deletehtm(path, path1);
-					}
-					
-				}
-			}
-			
-			*//*******************************************未完成******************************************//*
-			//还要判断file是不是在concept tree中被引用了。
-			//delteNode(linecontent);
-		}
-		else //rename,remove actions
-		{
-			String linecontent1 = actions.get(prenum);
-			String linecontent2 = actions.get(curnum);
-			String file1 = filePath2fileName(linecontent1);
-			String file2 = filePath2fileName(linecontent2);
-			contentInAL = linecontent1.split("\\|");
-			String SysOperation1 = contentInAL[2];
-			String path1 = contentInAL[3];
-			contentInAL = linecontent2.split("\\|");
-			String path2 = contentInAL[3];
-			String SysOperation2 = contentInAL[2];
-			if (!file1.equals(file2))
-			{
-				System.out.println(file1 + "  " + file2);
-				operation = "rename";
-				System.out.println("操作的文件是： " + path1 + " to: " + path2);
-				System.out.println("操作的类型是： " + operation);
-				if (inPIMTree(file1))
-				{
-					//syn.renameXML(path1, path2);
-					syn.renameXML(file1, file2);
-				}
-				if (inHTM(file1))
-				{
-					System.out.println("!!!here");
-					//for (int i = 0; i < ReadHTM.queue.outPutPath(file).size(); i++)
-					for (int i = 0; i < ReadHTM.ref_htm_path.size(); i++)
-					{
-						System.out.println(ReadHTM.ref_htm_path.size());
-						//System.out.println("!!!"+ReadHTM.queue.outPutPath(file).get(i));
-						//String path = ReadHTM.ref_htm_path.get(i).toString().replace("\\", "/");
-						String path = ReadHTM.ref_htm_path.get(i).toString();
-						System.out.println("path: " + path);
-						path1 = path1.replace("\\", "/");
-						path1 = path1.replace("c:", "C:");
-						path2 = path2.replace("\\", "/");
-						path2 = path2.replace("c:", "C:");
-						System.out.println("path1: " + path1 + " path2: " + path2);
-						syn.rewritehtm(path, path1, path2);
-					}
-					
-				}
-			}
-			//move action
-			else if (file1.equals(file2) && !path1.equals(path2)) 
-			{
-				operation  = "move";
-				System.out.println("操作的文件是： " + file1 + "Path: " + path1 + " to: " + path2);
-				System.out.println("操作的类型是： " + operation);
-				if (inPIMTree(file1))
-				{
-					path1 = path1.replace("c:", "C:");
-					path2 = path2.replace("c:", "C:");
-					syn.renameXML(path1, path2);
-				}
-				if (inHTM(file1))
-				{
-					for (int i = 0; i < ReadHTM.queue.outPutPath(file).size(); i++)
-					{
-						syn.rewritehtm(ReadHTM.queue.outPutPath(file).get(i).toString(), file1, file2);
-					}
-					for (int i = 0; i < ReadHTM.ref_htm_path.size(); i++)
-					{
-						System.out.println(ReadHTM.ref_htm_path.size());
-						//System.out.println("!!!"+ReadHTM.queue.outPutPath(file).get(i));
-						//String path = ReadHTM.ref_htm_path.get(i).toString().replace("\\", "/");
-						String path = ReadHTM.ref_htm_path.get(i).toString();
-						System.out.println("path: " + path);
-						path1 = path1.replace("\\", "/");
-						path1 = path1.replace("c:", "C:");
-						path2 = path2.replace("\\", "/");
-						path2 = path2.replace("c:", "C:");
-						System.out.println("path1: " + path1 + " path2: " + path2);
-						syn.rewritehtm(path, path1, path2);
-					}
-					
-				}
-			}
-		}
-	}*/
 	
 	public boolean inPIMTree(String file)
 	{

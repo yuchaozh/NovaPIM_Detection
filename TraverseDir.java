@@ -18,7 +18,6 @@ import java.util.ArrayList;
  */
 class TraverseDir extends SimpleFileVisitor<Path>
 {
-	//public static int filecount = 0;
 	public static int dircount = 0;  //文件夹的数目
 	public static ArrayList<Path> dirpath;	//存储文件夹路径的泛型数组
 	
@@ -30,7 +29,7 @@ class TraverseDir extends SimpleFileVisitor<Path>
 	//用preVisitDirectory就会出错
 	public FileVisitResult postVisitDirectory(Path dir, IOException exc) 
     {  
-        //System.out.println(">>>>Dir : " + dir);  
+
         dirpath.add(dir);
         dircount++;
         return FileVisitResult.CONTINUE;  
@@ -41,5 +40,4 @@ class TraverseDir extends SimpleFileVisitor<Path>
         System.out.println(exc);  
         return FileVisitResult.CONTINUE;
     }
-
 }
